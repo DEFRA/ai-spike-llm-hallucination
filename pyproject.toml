@@ -1,0 +1,35 @@
+[project]
+name = "pythonproject"
+version = "0.1.0"
+description = "Python project to evaluate llm hallucination"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.1.0",
+    "jupyter>=1.0.0",
+    "numpy>=1.24.0",
+    "pandas>=3.0.0",
+    "matplotlib>=3.10.8",
+    "taskipy>=1.14.1",
+    "pydantic-evals>=1.60.0",
+    "boto3>=1.42.59",
+    "scikit-learn>=1.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.uv]
+dev-dependencies = [
+    "ipykernel>=7.1.0",
+]
+
+[tool.uv.extra-build-dependencies]
+flash-attn = ["torch"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["data*", "output*"]
+
+[tool.taskipy.tasks]
+create-kernel = "ipython kernel install --user --env VIRTUAL_ENV $(pwd)/.venv --name=ai-spike-llm-hallucination"
