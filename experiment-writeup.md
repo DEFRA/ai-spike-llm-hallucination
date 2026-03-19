@@ -20,14 +20,15 @@ Pydantic combined with a backend LLM-As-A-judge can idenfity hallucinations in L
 For each function we provided the knowledge and one of either the correct response or the hallucinated response, blinded so the judge does not which it is.  We ask the judge to rate it from 0 to 1 where 0 is fully grounded in the knowledge, and 1 means the response contains a hallucination.  We take 1-score so that 1 corresponds to a hallucination.  Asking the judge to score this way directly produces less reliable results, possibly because it expects a score of 1 to be 'better' than 0.  We repeat for multiple backend LLMs and compare f1 scores betweeen them.
 
 ## Key Findings
+- We are able to detect hallucinations
 - Both models were less effective in finding hallucinations in summary compared to answers to questions.
 - When looking for hallucinations in answers to questions GPT OSS 120b (f1=0.87) performed better than Claude 3.7 (f1=0.85).
-  When looking for hallucinations in summaries of documents Claude 3.7 (f1=0.78) performed better than GPT OSS 120b (f1=0.74).
+- When looking for hallucinations in summaries of documents Claude 3.7 (f1=0.78) performed better than GPT OSS 120b (f1=0.74).
 - The models performed equally well when looking for hallucinations in summaries.
 - The model prefers to assign higher scores to better outcomes.
 - It was harder to produce high quality results from the dialogue data.
 - The wording of the rubric makes a significant difference and needs to be investigated in a future spike.
-- We should investigate asking the model to produce a probability rather than a binary 0/1 with various methdologies for calculating a threshold.
+- We should investigate asking the model to produce a probability in the range 0-1 rather than a binary 0/1 with various methdologies for calculating a threshold.
 
 ## Shortcomings
 - Due to processing limitations in using a laptop we have based our conclusions on 30 prompts per evaluation method, model and temperature.  To draw a more reliable conclusion we need to re-run the process on a cluster using at least 100 prompts per method, model and temperature.
